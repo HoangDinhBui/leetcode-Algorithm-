@@ -6,7 +6,7 @@ void input(int a[], int *n)
 		scanf("%d", &a[i]);
 	}
 }
-void Sort(int a[], int n)
+void sort(int a[], int n)
 {
 		if(a[0] > a[1])
 		{
@@ -36,7 +36,7 @@ int count(int a[], int n, int k)
 		{
 				if(a[0] > a[1])
 				{
-					Sort(a, n);
+					sort(a, n);
 					c++;
 					if ( c == k )
 					return a[0];
@@ -50,7 +50,7 @@ int count(int a[], int n, int k)
 				}
 				else if(a[0] < a[1])
 				{
-				    Sort(a, n);
+				    sort(a, n);
 				    c++;
 				    if ( c == k )
 				    return a[0];
@@ -63,14 +63,14 @@ int count(int a[], int n, int k)
 }
 int main()
 {
-			int a[100], n, k;
-			printf("Enter number of players: ");
-			scanf("%d", &n);
-			printf("Enter the number of round to win the game: ");
-			scanf("%d", &k);
-			printf("Enter the player's number: ");
-			input(a, &n);
-			printf("The winner is: ");
-			printf("%d", count(a, n, k));
+	int a[100], n, k;
+	printf("Enter number of players: ");
+	scanf("%d", &n);
+	printf("Enter the number of round to win the game: ");
+	scanf("%d", &k);
+	printf("Enter the player's number: ");
+	input(a, &n);
+	printf("The winner is: ");
+	printf("%d", count(a, n, k));
 			
 }
