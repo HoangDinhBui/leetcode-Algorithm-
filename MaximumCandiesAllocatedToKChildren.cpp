@@ -1,6 +1,6 @@
 #include<stdio.h>
 //2226. Maximum Candies Allocated to K Children
-void inputCandies(int candies[], int length) {
+void InputCandies(int candies[], int length) {
     for (int i = 0; i < length; i++) {
         scanf("%d", &candies[i]);
     }
@@ -26,7 +26,7 @@ int MaximumCandies(int candies[], int length, int k) {
 int main() {
     int candies[100], length, k;
     scanf("%d", &length);
-    inputCandies(candies, length);
+    InputCandies(candies, length);
     scanf("%d", &k);
     printf("Maximum candies allocated to %d children: %d", k, MaximumCandies(candies, length, k));
     return 0;
