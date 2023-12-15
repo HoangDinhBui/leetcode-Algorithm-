@@ -24,6 +24,10 @@ void reverseArray(int inverseArr[], int numOfDigits)
         end--;
     }
 }
+bool checkPaliNum(int countTrue, int numOfDigits)
+{
+    return countTrue == numOfDigits;
+}
 int main()
 {
     int numOfDigits, checkedNum, countTrue = 0;
@@ -32,6 +36,7 @@ int main()
     if (checkedNum < 0)
     {
         printf("False!");
+        return 0;
     }
     else
     {
@@ -59,9 +64,6 @@ int main()
                 countTrue++;
             }
         }
-        if (countTrue == numOfDigits)
-            printf("True!");
-        else
-            printf("False!");
+        checkPaliNum(countTrue, numOfDigits) ? printf("True!") : printf("False!");
     }
 }
