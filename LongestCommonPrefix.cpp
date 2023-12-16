@@ -1,7 +1,10 @@
 #include <stdio.h>
+
 int main()
 {
     char inputString;
-    scanf("%s", inputString);
-    
+    int numOfString;
+    printf("Enter number of string: ");
+    scanf("%d", &numOfString);
+    const char* inputString = malloc(numOfString * sizeof(char));
 }
