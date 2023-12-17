@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+//function of find the length of last word in a string
 int lengthOfLastWord(const char* fullWord)
 {
     int length = 0;
@@ -8,13 +9,14 @@ int lengthOfLastWord(const char* fullWord)
     {
         index--;
     }
-    while (index >= 0 && fullWord[index] == ' ')
+    while (index >= 0 && fullWord[index] != ' ')
     {
         length++;
-        index--;
+        --index;
     }
-    return length;
+    return length - 1;
 }
+//main function
 int main()
 {
     char inputString[100];
