@@ -17,5 +17,5 @@ int main()
         result++;
     }
     result--;
-    printf("%d", result);
+    printf("The square root of %d is %d", num, result);
 }
