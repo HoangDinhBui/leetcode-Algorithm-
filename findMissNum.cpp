@@ -2,15 +2,20 @@
 
 using namespace std;
 
-int findMissNum(int A[], int n)
+void findMissNum(int A[], int n)
 {
-    int low = A[0];
+    int diff = A[0];
     for(int i = 0; i < n; i++)
     {
-        if(A[i] != low + i)
-            return low + i;
+        if(A[i] != diff + i)    
+        {
+            while(diff < A[i] - i)
+            {
+                cout << diff + i <<" ";
+                diff++;
+            }
+        }
     }
-    return 0;
 }
 
 int main()
@@ -24,7 +29,7 @@ int main()
     {
         cin >> A[i];
     }
-    cout << "Missing number is: " << findMissNum(A, n) << endl;
+    findMissNum(A, n);
     delete[] A;
     return 0;
 }
