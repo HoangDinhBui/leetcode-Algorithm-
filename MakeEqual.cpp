@@ -30,16 +30,21 @@ bool checkMakeEqual(int *A, int n)
 
 int main() 
 {
-    int n;
-    cin >> n;
-    int *A = new int[n];
-    for (int i = 0; i < n; ++i) {
-        cin >> A[i];
+    int n, m;
+    cin >> m;
+    int A[1000];
+    while(m > 0)
+    {
+        cin >> n;
+        for (int i = 0; i < n; ++i) 
+        {
+            cin >> A[i];
+        }
+        if (checkMakeEqual(A, n))
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+        m--;
     }
-    if (checkMakeEqual(A, n))
-        cout << "YES" << endl;
-    else
-        cout << "NO" << endl;
-    delete[] A;
     return 0;
 }
