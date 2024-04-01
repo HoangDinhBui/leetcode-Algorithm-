@@ -1,43 +1,27 @@
 #include <iostream>
-
+#include <cmath>
 using namespace std;
 
-int powOfTwo(int n)
-{
-    int s = 1;
-    for(int i = n; i > 0; i--)
-    {
-        s = s * 2;
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if (n <= 0)
+            return false;
+        return log2(n) == (int)log2(n);
     }
-    return s;
-}
+};
 
-bool isPowerOfTwo(int n)
-{
-    int count = 0;
-    if(n <= 0)
-        return false;
-    if(n == 1)
-        return true;
-    int s = 0;
-    for(int i = 1; i <= n/2; i++)
-    {
-        if (n == powOfTwo(i))
-            count++;
-        continue;
-    }
-    if(count == 0)   
-        return false;
-    return true; 
-}
+int main() {
+    Solution sol;
+    int num;
 
-int main()
-{
-    int n;
-    cin >> n;
-    if (isPowerOfTwo(n) == true)
-        cout << "True";
+    cout << "Enter a number: ";
+    cin >> num;
+
+    if (sol.isPowerOfTwo(num))
+        cout << num << " is a power of two." << endl;
     else
-        cout << "False";
+        cout << num << " is not a power of two." << endl;
+
     return 0;
 }
