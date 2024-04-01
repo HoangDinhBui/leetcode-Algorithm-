@@ -1,21 +1,37 @@
-//not allow using sqrt(x) or pow(x, 0.5)
-#include <stdio.h>
-int main()
-{
-    int num;
-    printf("Enter the number that you need to square: ");
-    scanf("%d", &num);
-    if(num == 0)
-        printf("%d", 0);
-    if(num == 1)
-        printf("%d", 1);
-    if(num < 0)
-        return 0;
-    int result = 1;
-    while(result * result <= num)
-    {
-        result++;
+#include <iostream>
+using namespace std;
+
+class Solution {
+public:
+    int mySqrt(int x) {
+        if (x <= 1)
+            return x;
+        long left = 1; // Use long to avoid overflow
+        long right = x;
+        while (left < right) {
+            long mid = left + (right - left) / 2;
+            long square = mid * mid;
+
+            if (square == x)
+                return mid;
+            else if (square < x)
+                left = mid + 1;
+            else
+                right = mid;
+        }
+        // Since we are looking for integer square root, return left - 1 when square exceeds x
+        return left - 1;
     }
-    result--;
-    printf("The square root of %d is %d", num, result);
+};
+
+int main() {
+    Solution sol;
+    int num;
+
+    cout << "Enter a number: ";
+    cin >> num;
+
+    cout << "Square root of " << num << " is: " << sol.mySqrt(num) << endl;
+
+    return 0;
 }
