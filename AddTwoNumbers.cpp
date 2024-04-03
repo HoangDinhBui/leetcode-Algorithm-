@@ -2,37 +2,38 @@
 
 using namespace std;
 
-// Definition for singly-linked list.
+// Định nghĩa cấu trúc cho một nút trong danh sách liên kết
 struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
+    int val;            // Giá trị của nút
+    ListNode *next;     // Con trỏ trỏ đến nút tiếp theo trong danh sách
+    ListNode() : val(0), next(nullptr) {}                         // Constructor mặc định
+    ListNode(int x) : val(x), next(nullptr) {}                   // Constructor với một tham số
+    ListNode(int x, ListNode *next) : val(x), next(next) {}      // Constructor với hai tham số
 };
 
+// Lớp chứa các phương thức để thực hiện phép cộng hai danh sách liên kết
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* answer = new ListNode();
-        ListNode* tmp = answer;
-        int carry = 0;
-        while(l1 != nullptr || l2 != nullptr || carry){
-            int num1 = (l1 != nullptr ? l1->val : 0);
-            int num2 = (l2 != nullptr ? l2->val : 0);
-            l1 = (l1 != nullptr ? l1 -> next : nullptr);
-            l2 = (l2 != nullptr ? l2 -> next : nullptr);
-            int sum = num1 + num2 + carry;
-            carry = sum / 10;
-            ListNode *newNode = new ListNode(sum % 10);
-            tmp-> next = newNode;
-            tmp = tmp -> next;
+        ListNode* answer = new ListNode();     // Khởi tạo một danh sách liên kết mới để lưu kết quả
+        ListNode* tmp = answer;                 // Con trỏ tạm để di chuyển trong danh sách liên kết kết quả
+        int carry = 0;                          // Biến để lưu giá trị nhớ khi thực hiện phép cộng
+        while(l1 != nullptr || l2 != nullptr || carry){ // Duyệt qua cả hai danh sách và giá trị nhớ
+            int num1 = (l1 != nullptr ? l1->val : 0);     // Lấy giá trị của nút từ danh sách 1
+            int num2 = (l2 != nullptr ? l2->val : 0);     // Lấy giá trị của nút từ danh sách 2
+            l1 = (l1 != nullptr ? l1 -> next : nullptr);  // Di chuyển con trỏ danh sách 1 đến nút tiếp theo
+            l2 = (l2 != nullptr ? l2 -> next : nullptr);  // Di chuyển con trỏ danh sách 2 đến nút tiếp theo
+            int sum = num1 + num2 + carry;               // Tính tổng của hai giá trị và giá trị nhớ
+            carry = sum / 10;                             // Cập nhật giá trị nhớ
+            ListNode *newNode = new ListNode(sum % 10);    // Tạo một nút mới với giá trị là phần dư của tổng
+            tmp-> next = newNode;                         // Liên kết nút mới với danh sách kết quả
+            tmp = tmp -> next;                            // Di chuyển con trỏ tạm đến nút mới
         }
-        return answer -> next;
+        return answer -> next;                              // Trả về danh sách kết quả (bỏ qua nút đầu tiên)
     }
 };
 
-// Utility function to print a linked list
+// Hàm utility để in ra danh sách liên kết
 void printList(ListNode* head) {
     ListNode* current = head;
     while (current != nullptr) {
@@ -42,20 +43,22 @@ void printList(ListNode* head) {
     cout << "nullptr" << endl;
 }
 
+// Hàm main - chương trình chính
 int main() {
-    // Creating first list: 2 -> 4 -> 3
+    // Tạo hai danh sách liên kết
     ListNode* l1 = new ListNode(2);
     l1->next = new ListNode(4);
     l1->next->next = new ListNode(3);
     
-    // Creating second list: 5 -> 6 -> 4
     ListNode* l2 = new ListNode(5);
     l2->next = new ListNode(6);
     l2->next->next = new ListNode(4);
 
+    // Tạo một đối tượng Solution để gọi phương thức addTwoNumbers
     Solution solution;
     ListNode* result = solution.addTwoNumbers(l1, l2);
 
+    // In ra các danh sách và kết quả
     cout << "List 1: ";
     printList(l1);
 
@@ -65,7 +68,7 @@ int main() {
     cout << "Sum: ";
     printList(result);
 
-    // Clean up memory
+    // Giải phóng bộ nhớ
     delete l1;
     delete l2;
     delete result;
