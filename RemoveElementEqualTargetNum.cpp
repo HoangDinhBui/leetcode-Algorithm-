@@ -1,37 +1,35 @@
-#include <stdio.h>
-int main()
-{
-    //declare array and size of array
-    int arr[100], numOfElement;
-    //input size array
-    printf("Enter the number of array's elements: ");
-    scanf("%d", &numOfElement);
-    //input array with size just import
-    printf("Enter the elements of array: ");
-    for(int i = 0; i < numOfElement; i++)
-    {
-        scanf("%d", &arr[i]);
-    }
-    //declare target variable
-    int target;
-    //input targer number
-    printf("Enter the number you needed to remove: ");
-    scanf("%d", &target);
-    //remove element equal to target
-    for(int i = 0; i < numOfElement; i++)
-    {
-        if(arr[i] == target)
-        {
-            arr[i] = -1;
+#include <iostream>
+#include <vector>
+
+class Solution {
+public:
+    int removeElement(std::vector<int>& nums, int val) {
+        int curr = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] != val) {
+                nums[curr] = nums[i];
+                curr++;
+            }
         }
+
+        return curr;
     }
-    //print array after remove
-    for(int i = 0; i < numOfElement; i++)
-    {
-        if(arr[i] != -1)
-        {
-            printf("%d ", arr[i]);
-        }
+};
+
+int main() {
+    std::vector<int> nums = {3, 2, 2, 3};
+    int val = 3;
+
+    Solution solution;
+    int newSize = solution.removeElement(nums, val);
+
+    std::cout << "New size of the array after removing " << val << " is: " << newSize << std::endl;
+    std::cout << "Remaining elements in the array: ";
+    for (int i = 0; i < newSize; i++) {
+        std::cout << nums[i] << " ";
     }
+    std::cout << std::endl;
+
     return 0;
 }
