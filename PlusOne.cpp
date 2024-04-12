@@ -1,46 +1,41 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-void plusOne(int integer[], int numOfDigits)
-{
-    int intDigit = 0;
-    for(int i = 0; i < numOfDigits; i++)
-    {
-        intDigit = intDigit * 10;
-        intDigit = intDigit + integer[i];
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int n = digits.size();
+        if(n == 1 && (digits[0] == 0 || digits[0] == 9)){
+            digits[0] = (digits[0] + 1) % 10; 
+            if(digits[0] == 0) { 
+                digits.insert(digits.begin(), 1);
+            }
+            return digits;
+        }
+        for(int i = n - 1; i >= 0; i--){
+            if(digits[i] < 9){
+                digits[i]++;
+                return digits;
+            }else{
+                digits[i] = 0;
+            }
+        }
+        digits.insert(digits.begin(), 1);
+        return digits;
     }
-    intDigit += 1;
-    for(int i = 0; i < numOfDigits; i++)
-    {
-        integer[i] = intDigit % 10;
-        intDigit = intDigit / 10;
+};
+
+int main() {
+    Solution sol;
+    vector<int> digits = {1};
+    vector<int> result = sol.plusOne(digits);
+
+    for (int digit : result) {
+        cout << digit << " ";
     }
-}
+    cout << endl;
 
-void output(int integer[], int numOfDigits)
-{
-    cout << "Result: ";
-    for(int i = numOfDigits - 1; i >= 0; i--)
-        cout << integer[i] << " ";
-}
-
-void input(int integer[], int numOfDigits)
-{
-    for(int i = 0; i < numOfDigits; i++)
-        cin >> integer[i];
-}
-
-int main()
-{
-    int numOfDigits;
-    cout << "Enter number of digit: ";
-    cin >> numOfDigits;
-    int *integer = new int[numOfDigits];
-    cout << "Enter the element of array: ";
-    input(integer, numOfDigits);
-    plusOne(integer, numOfDigits);
-    output(integer, numOfDigits);
-    delete[] integer;
     return 0;
 }
