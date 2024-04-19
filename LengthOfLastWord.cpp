@@ -1,28 +1,29 @@
-#include<stdio.h>
-#include<string.h>
-//function of find the length of last word in a string
-int lengthOfLastWord(const char* fullWord)
-{
-    int length = 0;
-    int index = strlen(fullWord) - 1;
-    while (index >= 0 && fullWord[index] == ' ')
-    {
-        index--;
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        int count = 0;
+        int i = s.length()-1;
+        while (i >= 0 && s[i] == ' ') {
+            i--;
+        }
+        while (i >= 0 && s[i] != ' ') {
+            count++;
+            i--;
+        }
+        return count;
     }
-    while (index >= 0 && fullWord[index] != ' ')
-    {
-        length++;
-        --index;
-    }
-    return length - 1;
-}
-//main function
-int main()
-{
-    char inputString[100];
-    printf("Enter the string: ");
-    fgets(inputString, sizeof(inputString), stdin);
-    int result = lengthOfLastWord(inputString);
-    printf("Length of last word is: ");
-    printf("%d", result);
+};
+
+int main() {
+    string a;
+    cout << "Enter string: ";
+    cin >> a;
+    Solution s;
+    cout << "Length of last word is: " << s.lengthOfLastWord(a) << endl;
+    return 0; 
 }
