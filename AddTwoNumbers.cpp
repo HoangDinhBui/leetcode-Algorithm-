@@ -23,7 +23,7 @@ public:
             int num2 = (l2 != nullptr ? l2->val : 0);     // Lấy giá trị của nút từ danh sách 2
             l1 = (l1 != nullptr ? l1 -> next : nullptr);  // Di chuyển con trỏ danh sách 1 đến nút tiếp theo
             l2 = (l2 != nullptr ? l2 -> next : nullptr);  // Di chuyển con trỏ danh sách 2 đến nút tiếp theo
-            int sum = num1 + num2 + carry;               // Tính tổng của hai giá trị và giá trị nhớ
+            int sum = num1 + num2 + carry;                // Tính tổng của hai giá trị và giá trị nhớ
             carry = sum / 10;                             // Cập nhật giá trị nhớ
             ListNode *newNode = new ListNode(sum % 10);    // Tạo một nút mới với giá trị là phần dư của tổng
             tmp-> next = newNode;                         // Liên kết nút mới với danh sách kết quả
