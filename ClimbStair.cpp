@@ -1,20 +1,22 @@
-#include <stdio.h>
-//70. Climbing stair
-int main()
-{
-    int numOfSideStep;
-    printf("Enter the number of sidestep: ");
-    scanf("%d", &numOfSideStep);
-    if(numOfSideStep <= 2)
-    {
-        printf("%d", numOfSideStep);
-        return 0;
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        if(n == 0 || n == 1) {
+            return 1;
+        }
+        return climbStairs(n-1) + climbStairs(n-2);
     }
-    int dp[numOfSideStep];
-    dp[0] = 1, dp[1] = 1, dp[2] = 2;
-    for (int i = 3; i <= numOfSideStep; i++)
-    {
-        dp[i] = dp[i - 1] + dp[i - 2];//the next step is equal to the 1st previous step and 2nd previous step
-    }
-    printf("The number of way to go up stair: %d", dp[numOfSideStep]);
+};
+
+int main() {
+    int n;
+    cin >> n;
+    Solution s;
+    cout << s.climbStairs(n) << endl;
+    
+    return 0;
 }
