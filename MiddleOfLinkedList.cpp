@@ -1,6 +1,5 @@
 #include <iostream>
-
-// Definition for singly-linked list
+using namespace std;// Definition for singly-linked list
 struct ListNode {
     int val;
     ListNode *next;
@@ -34,10 +33,10 @@ public:
 void printList(ListNode *head) {
     ListNode *curr = head;
     while (curr) {
-        std::cout << curr->val << " ";
+        cout << curr->val << " ";
         curr = curr->next;
     }
-    std::cout << std::endl;
+    cout << endl;
 }
 
 int main() {
@@ -50,13 +49,13 @@ int main() {
 
     Solution solution;
 
-    std::cout << "Original list: ";
+    cout << "Original list: ";
     printList(head);
 
     // Find the middle node
     ListNode *middle = solution.middleNode(head);
 
-    std::cout << "Middle node value: " << middle->val << std::endl;
+    cout << "Middle node value: " << middle->val << endl;
 
     // Free memory
     ListNode *temp;
