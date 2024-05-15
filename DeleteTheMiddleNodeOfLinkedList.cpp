@@ -15,28 +15,18 @@ struct ListNode {
 class Solution {
 public:
     ListNode* deleteMiddle(ListNode* head) {
-        int length = 0;
-        ListNode *curr = head;
-        while(curr) {
-            length++;
-            curr = curr->next;
-        }
-        ListNode *dummy = new ListNode(0);
-        dummy->next = head;
-        ListNode *slow = dummy;
-        ListNode *fast = dummy;
-        ListNode *prev = dummy;
+        if(!head->next) 
+            return NULL;
+        ListNode *slow = head;
+        ListNode *fast = head;
+        ListNode *prev = NULL;
         while(fast && fast->next) {
+            fast = fast->next->next;
             prev = slow;
             slow = slow -> next;
-            fast = fast->next->next;
         }
-        if(length % 2 == 0) {
-            ListNode *middle = slow->next;
-            slow->next = middle->next;
-        } else prev->next = slow->next;
-
-        return dummy->next;
+        prev->next = slow->next;
+        return head;
     }
 };
 
