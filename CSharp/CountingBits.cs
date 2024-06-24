@@ -12,11 +12,3 @@ public class Solution {
     }
 }
 
-public class Program {
-    public static void Main() {
-        Solution solution = new Solution();
-        int n = 5;  // Bạn có thể thay đổi giá trị này để kiểm tra các đầu vào khác nhau
-        int[] result = solution.CountBits(n);
-        Console.WriteLine(string.Join(", ", result));  // Output: 0, 1, 1, 2, 1, 2
-    }
-}

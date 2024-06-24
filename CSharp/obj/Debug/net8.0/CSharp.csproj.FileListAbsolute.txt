@@ -1,0 +1,15 @@
+D:\leetcode\CSharp\bin\Debug\net8.0\CSharp.exe
+D:\leetcode\CSharp\bin\Debug\net8.0\CSharp.deps.json
+D:\leetcode\CSharp\bin\Debug\net8.0\CSharp.runtimeconfig.json
+D:\leetcode\CSharp\bin\Debug\net8.0\CSharp.dll
+D:\leetcode\CSharp\bin\Debug\net8.0\CSharp.pdb
+D:\leetcode\CSharp\obj\Debug\net8.0\CSharp.GeneratedMSBuildEditorConfig.editorconfig
+D:\leetcode\CSharp\obj\Debug\net8.0\CSharp.AssemblyInfoInputs.cache
+D:\leetcode\CSharp\obj\Debug\net8.0\CSharp.AssemblyInfo.cs
+D:\leetcode\CSharp\obj\Debug\net8.0\CSharp.csproj.CoreCompileInputs.cache
+D:\leetcode\CSharp\obj\Debug\net8.0\CSharp.sourcelink.json
+D:\leetcode\CSharp\obj\Debug\net8.0\CSharp.dll
+D:\leetcode\CSharp\obj\Debug\net8.0\refint\CSharp.dll
+D:\leetcode\CSharp\obj\Debug\net8.0\CSharp.pdb
+D:\leetcode\CSharp\obj\Debug\net8.0\CSharp.genruntimeconfig.cache
+D:\leetcode\CSharp\obj\Debug\net8.0\ref\CSharp.dll
