@@ -2,66 +2,64 @@
 #include <vector>
 #include <set>
 #include <algorithm>
+#include <cstring>
 
 const int MOD = 1e9 + 7;
 
 using namespace std;
 
-// Function to count the number of optimal subsets
-pair<int, int> count_optimal_subsets(int n, int k, int d, const vector<int>& a) {
-    set<int> elements;
-    // Initialize the set with elements from 1 to n
-    for (int i = 1; i <= n; ++i) {
-        elements.insert(i);
-    }
-    // Remove the elements given in array a
-    for (int x : a) {
-        elements.erase(x);
-    }
-
-    // Convert set to sorted vector
-    vector<int> S(elements.begin(), elements.end());
-    
-    // Step 3: Apply greedy algorithm to find the maximum subset
-    vector<int> chosen;
-    int last_chosen = -1e9;  // Very small number
-
-    for (int number : S) {
-        if (number > last_chosen + d) {
-            chosen.push_back(number);
-            last_chosen = number;
-        }
-    }
-
-    int max_length = chosen.size();
-
-    // Step 4: Count number of ways using dynamic programming
-    vector<int> dp(max_length + 1, 0);
-    dp[0] = 1;
-
-    for (int i = 0; i < S.size(); ++i) {
-        for (int j = max_length; j > 0; --j) {
-            if (j > 0 && (j == 1 || S[i] - chosen[j-2] > d)) {
-                dp[j] = (dp[j] + dp[j-1]) % MOD;
-            }
-        }
-    }
-
-    return {max_length, dp[max_length]};
-}
+vector<int> S;
+int n, k, d;
 
 int main() {
-    int n, k, d;
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+
     cin >> n >> k >> d;
+
     vector<int> a(k);
     for (int i = 0; i < k; ++i) {
         cin >> a[i];
     }
 
-    // Calculate and print the results
-    auto result = count_optimal_subsets(n, k, d, a);
-    cout << result.first << endl;
-    cout << result.second << endl;
+    set<int> elements;
+    for (int i = 1; i <= n; ++i) {
+        elements.insert(i);
+    }
+    for (int x : a) {
+        elements.erase(x);
+    }
+
+    S.assign(elements.begin(), elements.end());
+    sort(S.begin(), S.end());
+
+    vector<int> dp(S.size(), 1);
+    vector<int> count(S.size(), 1);
+
+    int max_length = 1;
+    for (int i = 1; i < S.size(); ++i) {
+        for (int j = 0; j < i; ++j) {
+            if (S[i] - S[j] > d) {
+                if (dp[i] < dp[j] + 1) {
+                    dp[i] = dp[j] + 1;
+                    count[i] = count[j];
+                } else if (dp[i] == dp[j] + 1) {
+                    count[i] = (count[i] + count[j]) % MOD;
+                }
+            }
+        }
+        max_length = max(max_length, dp[i]);
+    }
+
+    int number_of_ways = 0;
+    for (int i = 0; i < S.size(); ++i) {
+        if (dp[i] == max_length) {
+            number_of_ways = (number_of_ways + count[i]) % MOD;
+        }
+    }
+
+    cout << max_length << endl;
+    cout << number_of_ways << endl;
 
     return 0;
 }
