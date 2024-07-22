@@ -1,107 +1,77 @@
-//#pragma GCC optimize("02")
-//#pragma GCC tarrget("avx,avx2,fma")
 #include <bits/stdc++.h>
-
 using namespace std;
 
 typedef long long ll;
-typedef pair<int,int> ii;
-typedef unsigned long long ull;
+const int MOD = 1e9 + 7;
 
-#define X first
-#define Y second
-#define pb push_back
-#define mp make_pair
-#define ep emplace_back
-#define EL printf("\n")
-#define sz(A) (int) A.size()
-#define FOR(i,l,r) for (int i=l;i<=r;i++)
-#define FOD(i,r,l) for (int i=r;i>=l;i--)
-#define REP(i,n) for (int i=0;i<n;i++)
-#define sza(x) ((int)x.size())
-#define all(a) (a).begin(), (a).end()
-#define fillchar(a,x) memset(a, x, sizeof (a))
-#define faster ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define __Anh_Tran__ signed main()
-#define file(name) if (fopen(name".inp","r")){freopen(name".inp","r",stdin); freopen(name".out","w",stdout);}
-#define MAX 10001000
+int n, k, d;
+vector<bool> removed;
+vector<int> maxLength, ways, prefixSum, lastIndex;
 
-template<class X, class Y>
-    bool maximize(X &x, const Y &y) {
-        if (x < y) {
-            x = y; return true;
-        } else return false;
+void input() {
+    cin >> n >> k >> d;
+    removed.assign(n + 1, false);
+    for (int i = 0; i < k; ++i) {
+        int x;
+        cin >> x;
+        removed[x] = true;
     }
-template<class X, class Y>
-    bool minimize(X &x, const Y &y) {
-        if (x > y) {
-            x = y; return true;
-        } else return false;
-    }
-
-const int MAX_N = 1e5 + 5;
-const int MOD = (int)1e9 + 7;
-const ll INF = 1e9;
-//const ld EPS = 1e-9;
-int add(int x, int y) {
-    return x + y >= MOD ? x + y - MOD : x + y;
-}
-int sub(int x, int y) {
-    return x - y < 0 ? x - y + MOD : x - y;
 }
 
-int n,k,d, Hoang[MAX], Diep[MAX], sum[MAX], limit[MAX];
-bool removed[MAX];
+void process() {
+    int currentMax = 0, j = 0;
+    maxLength.assign(n + 1, 0);
+    ways.assign(n + 1, 0);
+    prefixSum.assign(n + 1, 0);
+    lastIndex.assign(n + 1, 0);
 
-void input(void){
-	scanf("%d%d%d", &n,&k,&d);
-	REP(i,k){
-		int x;
-		scanf("%d",&x); removed[x]=true;
-	}
-}
-void process(void){
-    int maxTri= 0,j=0;
-    FOR(i,1,n){
-        if(removed[i]){
-            Hoang[i] =-1; 
+    for (int i = 1; i <= n; ++i) {
+        if (removed[i]) {
+            maxLength[i] = -1;
             continue;
         }
-        while(j<i-d-1) 
-            maximize(maxTri, Hoang[++j]);
-        Hoang[i] = maxTri +1; 
-        maximize(limit[Hoang[i]],i);
+        while (j < i - d - 1) 
+            currentMax = max(currentMax, maxLength[++j]);
+        maxLength[i] = currentMax + 1;
+        lastIndex[maxLength[i]] = max(lastIndex[maxLength[i]], i);
     }
-    FOR(i,1,n) maximize(maxTri,Hoang[i]);
-    FOR(i,1,n){
-        if(removed[i]) Diep[i] =0;
-        else{
-            if(Hoang[i] ==1) Diep[i] =1;
-            else{
-                int A = limit[Hoang[i]-2] +1, Bien = limit[Hoang[i]-1];
-                minimize(Bien,i-d-1);
-                Diep[i] = sub(sum[Bien], sum[A-1]);
+    
+    currentMax = *max_element(maxLength.begin(), maxLength.end());
+    for (int i = 1; i <= n; ++i) {
+        if (removed[i]) {
+            ways[i] = 0;
+        } else {
+            if (maxLength[i] == 1) {
+                ways[i] = 1;
+            } else {
+                int start = lastIndex[maxLength[i] - 2] + 1;
+                int end = lastIndex[maxLength[i] - 1];
+                end = min(end, i - d - 1);
+                ways[i] = (prefixSum[end] - prefixSum[start - 1] + MOD) % MOD;
             }
         }
-        sum[i] =add(sum[i-1], Diep[i]);
+        prefixSum[i] = (prefixSum[i - 1] + ways[i]) % MOD;
     }
-    int ans =0;
-    FOR(i,1,n) if(Hoang[i] == maxTri) ans = add(ans, Diep[i]);
-    cout<<maxTri<<"\n"<<ans<<endl;
+
+    int answer = 0;
+    for (int i = 1; i <= n; ++i) {
+        if (maxLength[i] == currentMax) {
+            answer = (answer + ways[i]) % MOD;
+        }
+    }
+    cout << currentMax << "\n" << answer << endl;
 }
+
 void solve() {
     input();
     process();
 }
 
-__Anh_Tran__{
-    faster
-    int tc = 1;
-    // cin >> tc;
-    for (int t = 1; t <= tc; t++) {
-        
-        solve();
-    }
-    
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    solve();
     return 0;
 }
