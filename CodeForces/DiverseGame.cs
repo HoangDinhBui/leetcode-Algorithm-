@@ -33,32 +33,38 @@ public class CodeForce19 {
 
             values.Sort();
 
-            int[] shiftedValues = new int[values.Count];
-            for (int j = 0; j < values.Count; j++) {
-                shiftedValues[j] = values[(j + 1) % values.Count];
-            }
-
-            int index = 0;
             int[,] b = new int[n, m];
-            bool possible = true;
+            bool possible = false;
 
-            for (int j = 0; j < n; j++) {
-                for (int k = 0; k < m; k++) {
-                    b[j, k] = shiftedValues[index++];
-                    if (b[j, k] == a[j, k]) {
-                        possible = false;
-                    }
-                }
-            }
+            for (int shift = 1; shift < values.Count; shift++) {
+                int index = 0;
+                bool conflict = false;
 
-            if (possible) {
                 for (int j = 0; j < n; j++) {
                     for (int k = 0; k < m; k++) {
-                        Console.Write(b[j, k] + " ");
+                        b[j, k] = values[(index + shift) % values.Count];
+                        if (b[j, k] == a[j, k]) {
+                            conflict = true;
+                            break;
+                        }
+                        index++;
                     }
-                    Console.WriteLine();
+                    if (conflict) break;
                 }
-            } else {
+
+                if (!conflict) {
+                    possible = true;
+                    for (int j = 0; j < n; j++) {
+                        for (int k = 0; k < m; k++) {
+                            Console.Write(b[j, k] + " ");
+                        }
+                        Console.WriteLine();
+                    }
+                    break;
+                }
+            }
+
+            if (!possible) {
                 Console.WriteLine("-1");
             }
         }
